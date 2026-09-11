@@ -70,7 +70,11 @@ final class StatisticsViewController: UIViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         titleLabel.textColor = Theme.Color.textPrimary
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        let leftItem = UIBarButtonItem(customView: titleLabel)
+        if #available(iOS 26.0, *) {
+            leftItem.hidesSharedBackground = true
+        } 
+        navigationItem.leftBarButtonItem = leftItem
 
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()

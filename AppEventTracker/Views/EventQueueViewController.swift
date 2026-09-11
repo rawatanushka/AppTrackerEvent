@@ -61,7 +61,11 @@ final class EventQueueViewController: UIViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         titleLabel.textColor = Theme.Color.textPrimary
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        let leftItem = UIBarButtonItem(customView: titleLabel)
+        if #available(iOS 26.0, *) {
+            leftItem.hidesSharedBackground = true
+        }
+        navigationItem.leftBarButtonItem = leftItem
 
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -77,18 +81,24 @@ final class EventQueueViewController: UIViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.tintColor = Theme.Color.textPrimary
 
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(
-                image: UIImage(systemName: AppResources.ImageName.addPlus),
-                style: .plain,
-                target: self,
-                action: #selector(presentInput)
-            ),
-            UIBarButtonItem(
-                image: UIImage(systemName: AppResources.ImageName.menuEllipsis),
-                menu: makeMenu()
-            )
-        ]
+        let addPlusItem = UIBarButtonItem(
+            image: UIImage(systemName: AppResources.ImageName.addPlus),
+            style: .plain,
+            target: self,
+            action: #selector(presentInput)
+        )
+
+        let menuEllipsisItem = UIBarButtonItem(
+            image: UIImage(systemName: AppResources.ImageName.menuEllipsis),
+            menu: makeMenu()
+        )
+
+        if #available(iOS 26.0, *) {
+            addPlusItem.hidesSharedBackground = true
+            menuEllipsisItem.hidesSharedBackground = true
+        }
+        
+        navigationItem.rightBarButtonItems = [addPlusItem, menuEllipsisItem]
     }
 
     /// Styles the main view, configures the table view, and wires the tab control.
