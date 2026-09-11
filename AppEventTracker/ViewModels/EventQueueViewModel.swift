@@ -27,12 +27,6 @@ final class EventQueueViewModel {
 
     /// Called when the visible row data has changed.
     var onRowsChanged: (([EventRowViewModel]) -> Void)?
-    /// Called when the total "in progress" badge count changes.
-    var onInProgressCountChanged: ((Int) -> Void)?
-    /// Called when the total "failed" badge count changes.
-    var onFailedCountChanged: ((Int) -> Void)?
-    /// Called when the session label text should update.
-    var onSessionTextChanged: ((String) -> Void)?
     /// Called to present a toast message.
     var onMessage: ((String) -> Void)?
     /// Called when the ticker timer should start or stop.
@@ -57,7 +51,6 @@ final class EventQueueViewModel {
 
     /// Starts observing the repository for changes and seeds the initial state.
     func start() {
-        updateSessionText()
         token = repository.observe { [weak self] events in
             self?.latestEvents = events
             self?.rebuild()
@@ -104,15 +97,13 @@ final class EventQueueViewModel {
     func startNewSession() {
         session.startNewSession()
         collector.report(type: .visit)
-        updateSessionText()
-        onMessage?(AppStrings.EventQueue.startedSessionToast(sessionNumber: session.sessionNumber))
+        onMessage?(AppStrings.EventQueue.newSessionStartedToast)
     }
 
     /// Purges all events, markers, and resets the session counter.
     func clearAll() {
         repository.removeAll()
         session.reset()
-        updateSessionText()
         onMessage?(AppStrings.EventQueue.queueClearedToast)
     }
 
@@ -136,12 +127,5 @@ final class EventQueueViewModel {
         rows = models
         onRowsChanged?(models)
         onNeedsTickerChanged?(models.contains { $0.isCountingDown })
-        onInProgressCountChanged?(latestEvents.filter { $0.isAwaitingDelivery }.count)
-        onFailedCountChanged?(latestEvents.filter { $0.status == .retrying }.count)
-    }
-
-    /// Emits the current session label text via `onSessionTextChanged`.
-    private func updateSessionText() {
-        onSessionTextChanged?(AppStrings.EventQueue.sessionLabelText(sessionId: session.currentSessionId))
     }
 }

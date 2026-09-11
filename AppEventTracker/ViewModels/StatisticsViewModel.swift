@@ -37,12 +37,10 @@ final class StatisticsViewModel {
     var onEmptyChanged: ((Bool) -> Void)?
 
     private let repository: EventRepository
-    private let session: SessionManager
     private var token: ObservationToken?
 
-    init(repository: EventRepository, session: SessionManager) {
+    init(repository: EventRepository) {
         self.repository = repository
-        self.session = session
     }
 
     /// Starts observing the repository and emits the initial statistics snapshot.
@@ -59,7 +57,7 @@ final class StatisticsViewModel {
         let statistics = EventStatistics.make(from: events)
 
         onTotalProcessedChanged?(Formatters.countString(statistics.totalProcessed))
-        onTotalVisitsChanged?(Formatters.countString(session.sessionNumber))
+        onTotalVisitsChanged?(Formatters.countString(statistics.totalVisits))
         onTypeCountsChanged?(statistics.breakdown.map {
             (type: $0.type, count: Formatters.countString($0.count))
         })

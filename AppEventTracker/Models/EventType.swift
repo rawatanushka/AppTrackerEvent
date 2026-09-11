@@ -47,14 +47,4 @@ enum EventType: String, CaseIterable, Codable {
 
     /// Human-readable label used in the UI (matches the raw value, e.g. `"INSTALL"`).
     var displayName: String { rawValue }
-
-    /// SF Symbol name representing this event type.
-    var iconName: String {
-        switch self {
-        case .install: return AppResources.ImageName.installIcon
-        case .visit: return AppResources.ImageName.visitIcon
-        case .addToCart: return AppResources.ImageName.addToCartIcon
-        case .purchase: return AppResources.ImageName.purchaseIcon
-        }
-    }
 }

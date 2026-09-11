@@ -34,19 +34,50 @@ final class CoreDataStack {
         let model = CoreDataStack.makeModel()
         container = NSPersistentContainer(name: "AppEventTracker", managedObjectModel: model)
 
-        container.loadPersistentStores { description, error in
-            if let error {
-                // A corrupt store should not take the app down; start from a clean slate instead.
-                assertionFailure("Failed to load store: \(error)")
-                if let url = description.url {
-                    try? FileManager.default.removeItem(at: url)
-                }
-            }
+        do {
+            try Self.loadPersistentStores(in: container, retryAfterCorruption: true)
+        } catch {
+            assertionFailure("Failed to load Core Data store: \(error)")
         }
 
         writeContext = container.newBackgroundContext()
         writeContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         writeContext.automaticallyMergesChangesFromParent = true
+    }
+
+    /// Blocks until the SQLite store is ready. On corruption, deletes the store files and retries once.
+    private static func loadPersistentStores(
+        in container: NSPersistentContainer,
+        retryAfterCorruption: Bool
+    ) throws {
+        var capturedError: Error?
+        var storeURL: URL?
+        let semaphore = DispatchSemaphore(value: 0)
+
+        container.loadPersistentStores { description, error in
+            storeURL = description.url
+            capturedError = error
+            semaphore.signal()
+        }
+        semaphore.wait()
+
+        if let error = capturedError {
+            if retryAfterCorruption, let url = storeURL {
+                removeStoreFiles(at: url)
+                try loadPersistentStores(in: container, retryAfterCorruption: false)
+                return
+            }
+            throw error
+        }
+    }
+
+    /// Removes the SQLite store and its sidecar files so a fresh store can be created.
+    private static func removeStoreFiles(at url: URL) {
+        let fileManager = FileManager.default
+        for suffix in ["-wal", "-shm"] {
+            try? fileManager.removeItem(at: URL(fileURLWithPath: url.path + suffix))
+        }
+        try? fileManager.removeItem(at: url)
     }
 
     // MARK: - Schema

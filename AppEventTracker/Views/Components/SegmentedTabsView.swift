@@ -77,15 +77,6 @@ final class SegmentedTabsView: UIView {
         refresh()
     }
 
-    /// Updates the badge count for the given filter tab.
-    ///
-    /// - Parameters:
-    ///   - count: The number to display.
-    ///   - filter: The filter whose badge should update.
-    func setCount(_ count: Int, for filter: EventQueueViewModel.Filter) {
-        // Kept for API compatibility
-    }
-
     /// Programmatically selects the given filter and refreshes the visual state.
     ///
     /// - Parameter filter: The filter to activate.

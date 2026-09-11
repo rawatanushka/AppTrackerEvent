@@ -37,13 +37,9 @@ enum AppStrings {
         static let clearAllAlertTitle = "Clear all data?"
         static let clearAllAlertMessage = "Removes queued events, processed history and the deduplication markers."
 
-        static func startedSessionToast(sessionNumber: Int) -> String {
-            "Started Session #\(sessionNumber) & logged VISIT event"
-        }
+        static let newSessionStartedToast = "New session started"
+
         static let queueClearedToast = "Queue, history and session counter cleared"
-        static func sessionLabelText(sessionId: String) -> String {
-            "Session \(sessionId)"
-        }
     }
 
     /// Labels for the Statistics screen, including section titles and metric captions.
@@ -71,17 +67,8 @@ enum AppStrings {
         static let duplicate = "Duplicate"
         static let processed = "Processed ✓"
 
-        static func attemptCount(_ count: Int) -> String {
-            "Attempt \(count)"
-        }
         static func retryingIn(seconds: Int) -> String {
             seconds > 0 ? "Retrying in \(seconds)s" : "Retrying…"
-        }
-        static func failedAttempts(_ count: Int) -> String {
-            "Failed \(count)×"
-        }
-        static func deliveredAfterAttempts(_ count: Int) -> String {
-            "Delivered after \(count) attempts"
         }
     }
 

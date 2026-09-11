@@ -17,7 +17,6 @@ final class EventQueueViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var emptyLabel: UILabel!
 
-    private let sessionLabel = UILabel()
     private var rows: [EventRowViewModel] = []
     /// Refreshes the "Retrying in Ns" labels once a second while a countdown is visible.
     private var ticker: Timer?
@@ -177,18 +176,6 @@ final class EventQueueViewController: UIViewController {
             self.rows = rows
             self.tableView?.reloadData()
             self.emptyLabel?.isHidden = !rows.isEmpty
-        }
-
-        viewModel.onInProgressCountChanged = { [weak self] count in
-            self?.tabs?.setCount(count, for: .inProgress)
-        }
-
-        viewModel.onFailedCountChanged = { [weak self] count in
-            self?.tabs?.setCount(count, for: .failed)
-        }
-
-        viewModel.onSessionTextChanged = { [weak self] text in
-            self?.sessionLabel.text = text
         }
 
         viewModel.onNeedsTickerChanged = { [weak self] needed in

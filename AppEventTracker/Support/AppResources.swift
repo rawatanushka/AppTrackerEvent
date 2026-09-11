@@ -47,11 +47,5 @@ enum AppResources {
         static let refreshClockwise = "arrow.clockwise"
         static let newSessionArrow = "arrow.triangle.2.circlepath"
         static let trash = "trash"
-
-        // Event Type Icons
-        static let installIcon = "arrow.down.app.fill"
-        static let visitIcon = "person.fill.viewfinder"
-        static let addToCartIcon = "cart.fill"
-        static let purchaseIcon = "creditcard.fill"
     }
 }

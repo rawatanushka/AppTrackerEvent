@@ -54,10 +54,10 @@ final class AppEnvironment {
         EventQueueViewModel(repository: repository, collector: collector, session: session)
     }
 
-    /// Creates a new `StatisticsViewModel` wired to the shared repository and session.
+    /// Creates a new `StatisticsViewModel` wired to the shared repository.
     ///
     /// - Returns: A freshly constructed view model ready to drive the Statistics screen.
     func makeStatisticsViewModel() -> StatisticsViewModel {
-        StatisticsViewModel(repository: repository, session: session)
+        StatisticsViewModel(repository: repository)
     }
 }

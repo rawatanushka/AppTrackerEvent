@@ -35,7 +35,6 @@ struct EventStatistics: Equatable {
     /// - Parameter events: All events currently tracked by the repository.
     /// - Returns: An `EventStatistics` snapshot with totals and per-type breakdowns.
     static func make(from events: [TrackedEvent]) -> EventStatistics {
-        let uniqueSessions = Set(events.map(\.sessionId)).count
         let processed = events.filter { $0.status == .processed }
         guard !events.isEmpty else { return .empty }
 
@@ -45,6 +44,11 @@ struct EventStatistics: Equatable {
         }
 
         let total = processed.count
+        let uniqueVisitSessions = Set(
+            processed
+                .filter { $0.type == .visit }
+                .map(\.sessionId)
+        ).count
 
         let breakdown = EventType.allCases.map { type -> Breakdown in
             let count = counts[type] ?? 0
@@ -57,7 +61,7 @@ struct EventStatistics: Equatable {
 
         return EventStatistics(
             totalProcessed: total,
-            totalVisits: uniqueSessions,
+            totalVisits: uniqueVisitSessions,
             breakdown: breakdown
         )
     }
