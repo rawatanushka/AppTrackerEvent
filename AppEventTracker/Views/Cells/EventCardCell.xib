@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventCardCell" rowHeight="74" id="KGk-i7-Jjw" customClass="EventCardCell" customModule="AppEventTracker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-id">
+                        <rect key="frame" x="16" y="5" width="343" height="64"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dot-id">
+                                <rect key="frame" x="14" y="19.666666666666671" width="25" height="25"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dot-id" secondAttribute="height" multiplier="1:1" id="QH3-Kz-muP"/>
+                                    <constraint firstAttribute="width" constant="25" id="dot-w"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="textStack-id">
+                                <rect key="frame" x="51" y="14" width="180" height="36"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lbl-title">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:42:01.123 • #1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lbl-time">
+                                        <rect key="frame" x="0.0" y="22" width="180" height="14"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Processing..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-status">
+                                <rect key="frame" x="241" y="24.999999999999996" width="88" height="14.333333333333332"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dot-id" firstAttribute="leading" secondItem="card-id" secondAttribute="leading" constant="14" id="c-dot1"/>
+                            <constraint firstItem="dot-id" firstAttribute="centerY" secondItem="card-id" secondAttribute="centerY" id="c-dot2"/>
+                            <constraint firstItem="textStack-id" firstAttribute="leading" secondItem="dot-id" secondAttribute="trailing" constant="12" id="c-st1"/>
+                            <constraint firstItem="textStack-id" firstAttribute="top" secondItem="card-id" secondAttribute="top" constant="14" id="c-st2"/>
+                            <constraint firstItem="textStack-id" firstAttribute="bottom" secondItem="card-id" secondAttribute="bottom" constant="-14" id="c-st3"/>
+                            <constraint firstItem="lbl-status" firstAttribute="leading" secondItem="textStack-id" secondAttribute="trailing" constant="10" id="c-st4"/>
+                            <constraint firstAttribute="trailing" secondItem="lbl-status" secondAttribute="trailing" constant="14" id="c-stat1"/>
+                            <constraint firstItem="lbl-status" firstAttribute="centerY" secondItem="card-id" secondAttribute="centerY" id="c-stat2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="card-id" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cc1"/>
+                    <constraint firstAttribute="trailing" secondItem="card-id" secondAttribute="trailing" constant="16" id="cc2"/>
+                    <constraint firstItem="card-id" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="cc3"/>
+                    <constraint firstAttribute="bottom" secondItem="card-id" secondAttribute="bottom" constant="5" id="cc4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="card" destination="card-id" id="out-card"/>
+                <outlet property="dot" destination="dot-id" id="out-dot"/>
+                <outlet property="statusLabel" destination="lbl-status" id="out-status"/>
+                <outlet property="timeLabel" destination="lbl-time" id="out-time"/>
+                <outlet property="titleLabel" destination="lbl-title" id="out-title"/>
+            </connections>
+            <point key="canvasLocation" x="53" y="23"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MainTabBarController">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="tab-bar-scene">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" id="MainTabBarController" customClass="MainTabBarController" customModule="AppEventTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tab-bar-id">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="QueueNavVC" kind="relationship" relationship="viewControllers" id="queue-tab-segue"/>
+                        <segue destination="StatsNavVC" kind="relationship" relationship="viewControllers" id="stats-tab-segue"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tab-bar-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-800" y="0.0"/>
+        </scene>
+        <!--Queue-->
+        <scene sceneID="queue-nav-scene">
+            <objects>
+                <navigationController storyboardIdentifier="QueueNavVC" id="QueueNavVC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Queue" image="list.bullet.rectangle" id="queue-tab-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="queue-nav-bar-id">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="EventQueueViewController" kind="relationship" relationship="rootViewController" id="queue-root-segue"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="queue-nav-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="-350"/>
+        </scene>
+        <!--Ad Attribution Tracker-->
+        <scene sceneID="queue-vc-scene">
+            <objects>
+                <viewController storyboardIdentifier="EventQueueViewController" id="EventQueueViewController" customClass="EventQueueViewController" customModule="AppEventTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="queue-view-id">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleLabel-id">
+                                <rect key="frame" x="16" y="180" width="132.66666666666666" height="28.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="refreshButton-id">
+                                <rect key="frame" x="352" y="182" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="refresh-w"/>
+                                    <constraint firstAttribute="width" secondItem="refreshButton-id" secondAttribute="height" multiplier="1:1" id="y6Y-LL-lfL"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="small"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="refreshTapped:" destination="EventQueueViewController" eventType="touchUpInside" id="refresh-action"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tabs-id" customClass="SegmentedTabsView" customModule="AppEventTracker" customModuleProvider="target">
+                                <rect key="frame" x="16" y="222.66666666666666" width="361" height="39.999999999999972"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="tabs-h"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="74" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tableView-id">
+                                <rect key="frame" x="0.0" y="270.66666666666674" width="393" height="464.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emptyLabel-id">
+                                <rect key="frame" x="40" y="485" width="313" height="36"/>
+                                <string key="text">No events yet.
+Tap + to feed the tracker a JSON batch.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="queue-safe-area"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="titleLabel-id" firstAttribute="top" secondItem="queue-safe-area" secondAttribute="top" constant="8" id="q-c1"/>
+                            <constraint firstItem="queue-safe-area" firstAttribute="trailing" secondItem="tableView-id" secondAttribute="trailing" id="q-c10"/>
+                            <constraint firstItem="queue-safe-area" firstAttribute="bottom" secondItem="tableView-id" secondAttribute="bottom" id="q-c11"/>
+                            <constraint firstItem="emptyLabel-id" firstAttribute="centerY" secondItem="tableView-id" secondAttribute="centerY" id="q-c13"/>
+                            <constraint firstItem="emptyLabel-id" firstAttribute="leading" secondItem="queue-safe-area" secondAttribute="leading" constant="40" id="q-c14"/>
+                            <constraint firstItem="queue-safe-area" firstAttribute="trailing" secondItem="emptyLabel-id" secondAttribute="trailing" constant="40" id="q-c15"/>
+                            <constraint firstItem="titleLabel-id" firstAttribute="leading" secondItem="queue-safe-area" secondAttribute="leading" constant="16" id="q-c2"/>
+                            <constraint firstItem="refreshButton-id" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="titleLabel-id" secondAttribute="trailing" constant="8" id="q-c2b"/>
+                            <constraint firstItem="queue-safe-area" firstAttribute="trailing" secondItem="refreshButton-id" secondAttribute="trailing" constant="16" id="q-c3"/>
+                            <constraint firstItem="refreshButton-id" firstAttribute="centerY" secondItem="titleLabel-id" secondAttribute="centerY" id="q-c4"/>
+                            <constraint firstItem="tabs-id" firstAttribute="top" secondItem="titleLabel-id" secondAttribute="bottom" constant="14" id="q-c5"/>
+                            <constraint firstItem="tabs-id" firstAttribute="leading" secondItem="queue-safe-area" secondAttribute="leading" constant="16" id="q-c6"/>
+                            <constraint firstItem="queue-safe-area" firstAttribute="trailing" secondItem="tabs-id" secondAttribute="trailing" constant="16" id="q-c7"/>
+                            <constraint firstItem="tableView-id" firstAttribute="top" secondItem="tabs-id" secondAttribute="bottom" constant="8" id="q-c8"/>
+                            <constraint firstItem="tableView-id" firstAttribute="leading" secondItem="queue-safe-area" secondAttribute="leading" id="q-c9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="queue-nav-item">
+                        <barButtonItem key="rightBarButtonItem" image="plus.circle.fill" catalog="system" id="plus-btn">
+                            <connections>
+                                <action selector="presentInput:" destination="EventQueueViewController" id="plus-action"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="emptyLabel" destination="emptyLabel-id" id="out-empty"/>
+                        <outlet property="refreshButton" destination="refreshButton-id" id="out-refresh"/>
+                        <outlet property="tableView" destination="tableView-id" id="out-table"/>
+                        <outlet property="tabs" destination="tabs-id" id="out-tabs"/>
+                        <outlet property="titleLabel" destination="titleLabel-id" id="out-title"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="queue-vc-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="800" y="-350"/>
+        </scene>
+        <!--Statistics-->
+        <scene sceneID="stats-nav-scene">
+            <objects>
+                <navigationController storyboardIdentifier="StatsNavVC" id="StatsNavVC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Statistics" image="chart.bar.fill" id="stats-tab-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="stats-nav-bar-id">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="StatisticsViewController" kind="relationship" relationship="rootViewController" id="stats-root-segue"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="stats-nav-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="350"/>
+        </scene>
+        <!--Ad Attribution Tracker-->
+        <scene sceneID="stats-vc-scene">
+            <objects>
+                <viewController storyboardIdentifier="StatisticsViewController" id="StatisticsViewController" customClass="StatisticsViewController" customModule="AppEventTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="stats-view-id">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scrollView-id">
+                                <rect key="frame" x="0.0" y="172" width="393" height="563"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="contentStack-id">
+                                        <rect key="frame" x="16" y="4" width="361" height="560.33333333333337"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="statsTitle-id">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="28.666666666666668"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28.666666666666668" id="v07-kh-iOv"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="topRowStack-id">
+                                                <rect key="frame" x="0.0" y="42.666666666666657" width="361" height="93"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="processedCardView" customClass="MetricCardView" customModule="AppEventTracker" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="93"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="visitsCardView" customClass="MetricCardView" customModule="AppEventTracker" customModuleProvider="target">
+                                                        <rect key="frame" x="186.66666666666663" y="0.0" width="174.33333333333337" height="93"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="93" id="top-row-h"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="gridStack-id">
+                                                <rect key="frame" x="0.0" y="149.66666666666669" width="361" height="175"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="gridRow1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="361" height="81.666666666666671"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="installTileView" customClass="EventCountTileView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="81.666666666666671"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="visitTileView" customClass="EventCountTileView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="186.66666666666663" y="0.0" width="174.33333333333337" height="81.666666666666671"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="gridRow2">
+                                                        <rect key="frame" x="0.0" y="93.666666666671517" width="361" height="81.333333333328483"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clickTileView" customClass="EventCountTileView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="81.333333333333329"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="purchaseTileView" customClass="EventCountTileView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="186.66666666666663" y="0.0" width="174.33333333333337" height="81.333333333333329"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="175" id="grid-h"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Breakdown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="breakdownSectionTitle">
+                                                <rect key="frame" x="0.0" y="338.66666666665697" width="361" height="17"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="breakdownContainer">
+                                                <rect key="frame" x="0.0" y="369.66666666665697" width="361" height="190.66666666668607"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="breakdownStackInner">
+                                                        <rect key="frame" x="16" y="16" width="329" height="158.66666666666666"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="breakdownHeaderStack">
+                                                                <rect key="frame" x="0.0" y="0.0" width="329" height="18.666666666666668"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="headerEventLabel">
+                                                                        <rect key="frame" x="0.0" y="1.6666666666667416" width="181" height="15.666666666666664"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="headerCountLabel">
+                                                                        <rect key="frame" x="189" y="1.6666666666667416" width="48" height="15.666666666666664"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="48" id="hCount-w"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percentage" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="headerPercentageLabel">
+                                                                        <rect key="frame" x="245" y="1.6666666666667416" width="84" height="15.666666666666664"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="84" id="hPct-w"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="installRowView" customClass="BreakdownRowView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="28.666666666666742" width="329" height="25"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="r1-h"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="visitRowView" customClass="BreakdownRowView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="63.666666666666742" width="329" height="25"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="r2-h"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clickRowView" customClass="BreakdownRowView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="98.666666666666742" width="329" height="25"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="r3-h"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="purchaseRowView" customClass="BreakdownRowView" customModule="AppEventTracker" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="133.66666666666674" width="329" height="25"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="r4-h"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="breakdownStackInner" firstAttribute="leading" secondItem="breakdownContainer" secondAttribute="leading" constant="16" id="bc-c1"/>
+                                                    <constraint firstItem="breakdownStackInner" firstAttribute="trailing" secondItem="breakdownContainer" secondAttribute="trailing" constant="-16" id="bc-c2"/>
+                                                    <constraint firstItem="breakdownStackInner" firstAttribute="top" secondItem="breakdownContainer" secondAttribute="top" constant="16" id="bc-c3"/>
+                                                    <constraint firstItem="breakdownStackInner" firstAttribute="bottom" secondItem="breakdownContainer" secondAttribute="bottom" constant="-16" id="bc-c4"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="contentStack-id" firstAttribute="top" secondItem="scroll-content-guide" secondAttribute="top" constant="4" id="s-c1"/>
+                                    <constraint firstItem="contentStack-id" firstAttribute="bottom" secondItem="scroll-content-guide" secondAttribute="bottom" constant="-24" id="s-c2"/>
+                                    <constraint firstItem="contentStack-id" firstAttribute="leading" secondItem="scroll-content-guide" secondAttribute="leading" constant="16" id="s-c3"/>
+                                    <constraint firstItem="contentStack-id" firstAttribute="trailing" secondItem="scroll-content-guide" secondAttribute="trailing" constant="-16" id="s-c4"/>
+                                    <constraint firstItem="contentStack-id" firstAttribute="width" secondItem="scroll-frame-guide" secondAttribute="width" constant="-32" id="s-c5"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="scroll-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="scroll-frame-guide"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="stats-safe-area"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="scrollView-id" firstAttribute="top" secondItem="stats-safe-area" secondAttribute="top" id="st-c1"/>
+                            <constraint firstItem="scrollView-id" firstAttribute="leading" secondItem="stats-safe-area" secondAttribute="leading" id="st-c2"/>
+                            <constraint firstItem="stats-safe-area" firstAttribute="trailing" secondItem="scrollView-id" secondAttribute="trailing" id="st-c3"/>
+                            <constraint firstItem="stats-safe-area" firstAttribute="bottom" secondItem="scrollView-id" secondAttribute="bottom" id="st-c4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="stats-nav-item"/>
+                    <connections>
+                        <outlet property="addToCartRow" destination="clickRowView" id="out-clickRow"/>
+                        <outlet property="addToCartTile" destination="clickTileView" id="out-clickTile"/>
+                        <outlet property="breakdownContainer" destination="breakdownContainer" id="out-breakdownContainer"/>
+                        <outlet property="contentStack" destination="contentStack-id" id="out-contentStack"/>
+                        <outlet property="installRow" destination="installRowView" id="out-installRow"/>
+                        <outlet property="installTile" destination="installTileView" id="out-installTile"/>
+                        <outlet property="processedCard" destination="processedCardView" id="out-processedCard"/>
+                        <outlet property="purchaseRow" destination="purchaseRowView" id="out-purchaseRow"/>
+                        <outlet property="purchaseTile" destination="purchaseTileView" id="out-purchaseTile"/>
+                        <outlet property="scrollView" destination="scrollView-id" id="out-scrollView"/>
+                        <outlet property="visitRow" destination="visitRowView" id="out-visitRow"/>
+                        <outlet property="visitTile" destination="visitTileView" id="out-visitTile"/>
+                        <outlet property="visitsCard" destination="visitsCardView" id="out-visitsCard"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="stats-vc-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="800" y="350"/>
+        </scene>
+        <!--Report Events-->
+        <scene sceneID="json-vc-scene">
+            <objects>
+                <viewController storyboardIdentifier="JSONInputViewController" id="JSONInputViewController" customClass="JSONInputViewController" customModule="AppEventTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="json-view-id">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste an array of events, a single event object, or { &quot;events&quot;: [...] }." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hintLabel-id">
+                                <rect key="frame" x="16" y="130" width="361" height="33.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="textView-id">
+                                <rect key="frame" x="16" y="175.66666666666669" width="361" height="532.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" smartQuotesType="no"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="submitButton-id">
+                                <rect key="frame" x="16" y="724" width="361" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="submit-h"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add to Queue" cornerStyle="large"/>
+                                <connections>
+                                    <action selector="submit:" destination="JSONInputViewController" eventType="touchUpInside" id="submit-action"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="json-safe-area"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hintLabel-id" firstAttribute="top" secondItem="json-safe-area" secondAttribute="top" constant="12" id="j-c1"/>
+                            <constraint firstItem="json-safe-area" firstAttribute="bottom" secondItem="submitButton-id" secondAttribute="bottom" constant="12" id="j-c10"/>
+                            <constraint firstItem="hintLabel-id" firstAttribute="leading" secondItem="json-safe-area" secondAttribute="leading" constant="16" id="j-c2"/>
+                            <constraint firstItem="json-safe-area" firstAttribute="trailing" secondItem="hintLabel-id" secondAttribute="trailing" constant="16" id="j-c3"/>
+                            <constraint firstItem="textView-id" firstAttribute="top" secondItem="hintLabel-id" secondAttribute="bottom" constant="12" id="j-c4"/>
+                            <constraint firstItem="textView-id" firstAttribute="leading" secondItem="json-safe-area" secondAttribute="leading" constant="16" id="j-c5"/>
+                            <constraint firstItem="json-safe-area" firstAttribute="trailing" secondItem="textView-id" secondAttribute="trailing" constant="16" id="j-c6"/>
+                            <constraint firstItem="submitButton-id" firstAttribute="top" secondItem="textView-id" secondAttribute="bottom" constant="16" id="j-c7"/>
+                            <constraint firstItem="submitButton-id" firstAttribute="leading" secondItem="json-safe-area" secondAttribute="leading" constant="16" id="j-c8"/>
+                            <constraint firstItem="json-safe-area" firstAttribute="trailing" secondItem="submitButton-id" secondAttribute="trailing" constant="16" id="j-c9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Report Events" id="json-nav-item">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cancel-btn">
+                            <connections>
+                                <action selector="dismissSheet:" destination="JSONInputViewController" id="cancel-action"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sample" id="sample-btn">
+                            <connections>
+                                <action selector="loadSample:" destination="JSONInputViewController" id="sample-action"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="hintLabel" destination="hintLabel-id" id="out-hint"/>
+                        <outlet property="submitButton" destination="submitButton-id" id="out-submit"/>
+                        <outlet property="textView" destination="textView-id" id="out-text"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="json-vc-first-responder" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1600" y="0.0"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
+        <image name="chart.bar.fill" width="128" height="128"/>
+        <image name="list.bullet.rectangle" width="128" height="128"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
